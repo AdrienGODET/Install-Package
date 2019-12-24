@@ -1,0 +1,43 @@
+<Package>
+    <PRE>
+        <File>
+            <AddFile>
+                <P1 Path="C:\temp\TEST" Itemname="Remove" Type="directory"/>
+                <P2 Path="C:\temp\TEST\REMOVE" ItemName="remove.txt" Type="file" Value="c'est un fichier de test"/>
+                <P3 Path="appdata\local" ItemName="test" Type="directory" AllUsers="True" Exclude="Public"/>
+                <P4 Path="appdata\local\test" ItemName="test.txt" Type="file" Value="c'est un fichier de test" AllUsers="True" Exclude="Public"/>
+            </AddFile>
+        </File>
+        <REG>
+            <AddReg>
+                <P1 Path="HKLM:\SOFTWARE\TEST\Applications" RegName="7ZipREG" Value="False" PropertyType="String"/>
+            </AddReg>
+            <AddRegFile>
+                <P1 Path=".\7ZipFile.reg"/>
+                <P2 Path="C:\Users\adrien.godet\OneDrive\Scripting\UNCPATH\7ZipUNC.reg"/>
+                <P3 Path="C:\Users\adrien.godet\OneDrive\Scripting\UNCPATH\7Zip UNCTESTESPACE.reg"/>
+                <P4 Path="\\127.0.0.1\networkpath\7ZipNetwork.reg"/>
+            </AddRegFile>
+        </REG>
+    </PRE>
+    <RUN>
+        <File>
+            <removeFile>
+                <P1 Path="C:\Temp\TEST\REMOVE\remove.txt" recursive="False"/>
+                <P2 Path="C:\Temp\TEST\REMOVE" recursive="True"/>
+            </removeFile>
+        </File>
+    </RUN>
+    <POST>
+        <REG>
+            <RemoveReg>
+                <P1 Path="HKLM:\SOFTWARE\TEST\Applications"/>
+            </RemoveReg>
+        </REG>
+        <CMD>
+            <Execute>
+                <P1 Process="Start-Process Reg.exe" argumentList="C:\temp\destination"/>
+            </Execute>
+        </CMD>
+    </POST>
+</Package>
